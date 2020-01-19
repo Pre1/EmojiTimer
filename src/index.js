@@ -1,10 +1,12 @@
 import React, { Component } from "react";
 
+import style from "./defaultStyles.css";
+
 class EmojiTimer extends Component {
   initialState = {
     prefredEmoji: "⏱",
-    min: 0,
-    sec: 0,
+    min: "00",
+    sec: "00",
     started: false,
     ended: false,
     timerId: null,
@@ -13,7 +15,7 @@ class EmojiTimer extends Component {
 
     timerStatus: "badge-dark",
     currentAnimation: "",
-    startingAnimation: "",
+    startingAnimation: "vibrate-1",
     endingAnimation: "",
     conditionalAnimation: null,
     styleContainer: null,
@@ -66,6 +68,10 @@ class EmojiTimer extends Component {
         return this.timerStop();
       }
 
+      function isSingleDigit(num) {
+        return `${num}`.length <= 1;
+      }
+
       const newTargetTime_ms = targetTime_ms - 1000;
 
       let mins = Math.floor(
@@ -75,6 +81,14 @@ class EmojiTimer extends Component {
       let secs = Math.floor((newTargetTime_ms % (1000 * 60)) / 1000);
 
       const changes = { min: mins, sec: secs, targetTime_ms: newTargetTime_ms };
+
+      if (isSingleDigit(mins)) {
+        mins = `0${mins}`;
+      }
+
+      if (isSingleDigit(secs)) {
+        secs = `0${secs}`;
+      }
 
       if (conditionalAnimation) {
         const { targetTimerInMin, animation } = conditionalAnimation;
