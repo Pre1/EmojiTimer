@@ -152,9 +152,9 @@ class EmojiTimer extends Component {
       <>
         <span
           className={`${classNames} ${currentAnimation}`}
-          style={{ width: "25%", ...styleContainer }}
+          style={{ ...styleContainer }}
         >
-          <span className="" style={{ width: "40%", ...styleTimer }}>
+          <span className="" style={{ ...styleTimer }}>
             {prefredEmoji} &nbsp; {min} : {sec}
           </span>
         </span>

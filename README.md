@@ -2,12 +2,42 @@
 Timer component with your prefred emoji ☕️
 
 ## Installation
+---
 
 As of right now, just `git clone` the repo into your prject directory (`src/`)
 
 later, we'll add it to NPM ~ 
 
+
+## Usage example
+---
+
+```javaScript
+import EmojiTimer from "./EmojiTimer/src";
+
+function App() {
+  return (
+    <div className="App">
+      <header className="App-header">
+
+        <EmojiTimer 
+            prefredEmoji="🧗‍♀️"
+            duration={0.1}
+            timerStarted={true} 
+        />
+
+      </header>
+    </div>
+  );
+}
+```
+
+The timer has some default styling (little adjustment here and there) with default strting/ending animation
+that you can override.
+
 ## Props
+---
+
 | name                   |                          type                           |                                description |
 | ---------------------- | :-----------------------------------------------------: | -----------------------------------------: |
 | *duration*             |                   Number: *required*                    |              timer duration in **minutes** |

@@ -133,6 +133,8 @@
 .timerBox {
   border: 1px solid "#54565A";
   border-radius: 20px;
-  padding: 0.5em;
+  padding: 20px;
+  margin: 20px;
   background-color: black;
+  width: 10%;
 }
