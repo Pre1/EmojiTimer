@@ -11,12 +11,12 @@ class EmojiTimer extends Component {
     ended: false,
     timerId: null,
     targetTime_ms: 0,
-    classNames: "",
+    classNames: "timerBox",
 
     timerStatus: "badge-dark",
     currentAnimation: "",
     startingAnimation: "vibrate-1",
-    endingAnimation: "",
+    endingAnimation: "shake-top",
     conditionalAnimation: null,
     styleContainer: null,
     styleTimer: null
@@ -58,6 +58,11 @@ class EmojiTimer extends Component {
       styleContainer: styleContainer || this.initialState.styleContainer,
       styleTimer: styleTimer || this.initialState.styleTimer
     });
+
+    if (timerStarted) {
+      this.onCountdown();
+      this.setState({ currentAnimation: this.state.startingAnimation });
+    }
   };
 
   onCountdown = () => {
@@ -65,6 +70,7 @@ class EmojiTimer extends Component {
       const { targetTime_ms, conditionalAnimation } = this.state;
 
       if (targetTime_ms <= 0) {
+        this.setState({ currentAnimation: this.state.endingAnimation });
         return this.timerStop();
       }
 
@@ -80,8 +86,6 @@ class EmojiTimer extends Component {
 
       let secs = Math.floor((newTargetTime_ms % (1000 * 60)) / 1000);
 
-      const changes = { min: mins, sec: secs, targetTime_ms: newTargetTime_ms };
-
       if (isSingleDigit(mins)) {
         mins = `0${mins}`;
       }
@@ -89,6 +93,8 @@ class EmojiTimer extends Component {
       if (isSingleDigit(secs)) {
         secs = `0${secs}`;
       }
+
+      const changes = { min: mins, sec: secs, targetTime_ms: newTargetTime_ms };
 
       if (conditionalAnimation) {
         const { targetTimerInMin, animation } = conditionalAnimation;
@@ -136,24 +142,21 @@ class EmojiTimer extends Component {
       prefredEmoji,
       min,
       sec,
-      timerStatus,
-      started,
       currentAnimation,
       classNames,
       styleContainer,
-      styleTimer,
-      ended
+      styleTimer
     } = this.state;
 
     return (
       <>
         <span
-          className={`${classNames} ${(started || ended) && currentAnimation}`}
+          className={`${classNames} ${currentAnimation}`}
           style={{ width: "25%", ...styleContainer }}
         >
-          <div className="" style={{ width: "40%", ...styleTimer }}>
-            {prefredEmoji} &nbsp; {sec} : {min}
-          </div>
+          <span className="" style={{ width: "40%", ...styleTimer }}>
+            {prefredEmoji} &nbsp; {min} : {sec}
+          </span>
         </span>
       </>
     );
